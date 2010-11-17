@@ -13,7 +13,8 @@
  * http://labs.karappo.net/
  *
  * < Changelog >
- * 8 Oct 2009 : ver. 1 release
+ * 8  Oct 2009 : ver.1     release
+ * 12 Oct 2009 : ver.1.1   bug fix in bending
  * 
  * ----------------------------------------------------------------------------
  */
@@ -124,7 +125,7 @@ void playBendToneToTone(  unsigned long startTone, unsigned long endTone,
                           int durationPerscore, int scoreNumWhileBending  )
 {
   
-  double toneDiffPerStep = ((endTone - startTone)/BendStepsPerNote)/scoreNumWhileBending;
+  long toneDiffPerStep = (((long)endTone - (long)startTone)/BendStepsPerNote)/scoreNumWhileBending;
   int durationOfDevidedTones = durationPerscore/BendStepsPerNote;
 //  Serial.println("[[ playBendToneToTone ]]");
 //  Serial.println(startTone);
@@ -230,7 +231,7 @@ void playScore( char score[], int MSpN = DEFAULT_MSpN )
     }
   }
   
-  Serial.println(":::::::: score end :::::::::");
+//  Serial.println(":::::::: score end :::::::::");
 }
 // set octave's min and max
 int getValidOctave( int val )
@@ -255,7 +256,7 @@ char score4[] = "[<<],E--E~~D[>>]F(<)--F--F--  ,[<<<<],E--E~~D[>>]F(<)--F--F-- E
 
 void setup() 
 {
-  Serial.begin(9600);
+//  Serial.begin(9600);
   pinMode(SPEAKER_PIN, OUTPUT);
   pinMode(SW_PIN_1, INPUT);
   pinMode(SW_PIN_2, INPUT);
