@@ -52,83 +52,97 @@
       melody maker with bending sound on Arduino
     </div>
 
-    <p>使い方
-下記のようにスコア（char型の配列）を用意して、playScoreに渡します。
-char score[] = "E----.";
+    <p>
+今回はArduinoで複雑なメロディを奏でるプロジェクトを公開します。<br />
 
-playScore(score);
+まず、Arduinoで音を出力するサンプルはIDEのメニューから「File > Examples > Digital > Melody」にあります。ArduinoのDOUT（デジタルアウト）ピンをスピーカーにつなぎ、そのピンの出力を一定の周期で「01」に切り替えることでパルス波を得られます。また、その周期を変えることで音高コントロールすることができます。<br />
 
+これを改良して、ベンド（ある音高と別の音高を滑らかに繋げること）など、より細かい設定が可能なようにしました。下に基本的な使い方を解説します。興味ある人はDLしてソースを見てみてください。スコアの記述法を考えるのが簡易なプログラミング言語を作ってる感覚で面白かったです。より扱いやすいスコアの記述法なども募集します！名前は<a href="http://code.google.com/p/tinkerit/wiki/Auduino">Auduino</a>を真似てます。<br />
 
-ノート
-スコアはノートの連なりで構成され、playScoreの第２引数で１ノート分の単位時間を指定できます。
-指定しない場合はデフォルト値（50ms）になります。
-// scoreの中の1ノートの長さが1000msになります。
+<br />
 
-playScore(score, 1000);
+-<br />
 
+<b>Meloduino</b><br />
 
-スコア記号
-'A','B','C','D','E','F','G','A','B'：１ノートの音高
+Version: 1.1 （ベンディング時のバグを修正）<br />
 
-' '：１ノートの無音
+2009.10.12<br />
 
-'-'：１ノートの持続
+<a href='http://www.karappo.net/labs/action.php?action=plugin&amp;name=LinkCounter&amp;type=c&amp;k=meloduino1.1'>Meloduino_v1_1.zip</a>[266clicks]<br />
 
-'~'：ベンドと１ノートの持続
+<br />
 
-'>'：１オクターブ上昇
+Version: 1<br />
 
-'<'：１オクターブ下降
+2009.10.8<br />
 
-'.'：SILENCE_TIMEで指定された時間分の無音
+<a href='http://www.karappo.net/labs/action.php?action=plugin&amp;name=LinkCounter&amp;type=c&amp;k=meloduino1&amp;url=http://labs.karappo.net/interact/data/Meloduino_v1.zip'>Meloduino_v1.zip</a>[54clicks]<br />
 
-'('：ノートの変化記号開始
-
-')'：ノートの変化記号終了
-
-'['：グローバルの変化記号開始
-
-']'：グローバルの変化記号終了
-
-','：無視される記号（グルーピングなどに使用する）
-
-
-スコアの記述
-ノートの音高を指定し、持続記号で長さを指定します。音高記号はそれだけで１ノート分の長さを持ちます。
-"C"　「ド」
-
-"C-"「ド」
-
-"C--"　「ドー」
-
-無音部分はスペースで記述します。"."を最後につけるとループするときに一定の間隔を設けることができます
-"CC  C----."「ドド・・ドーー」
-
-ベンドによる音程の接続
-"C~~~~D."　「ド」から４ノート分の長さで「レ」へ移行します。
-【注意】'~'の数で持続時間を指定します。例として次のノートの長さは（３ではなく）１ノート分になります。
-"E~F."
-
-ノート固有の変化記号はノートの後ろにつけます。
-"C(<)."
-
-グローバルな変化記号はそれ以降の全てのノートに影響します。
-"CDE[>]CDE."
-
-複数指定可能です。
-"CDE[>>>]CDE."
-
-上の方のビデオの中で再生してるスコアです。再生順になってます。
-char score1[] = "C--D--E----D--C--    C--D--E--D--C--D----.[>]C--D--E----D--C--    C--D--E--D--C--D----.";
-
-char score2[] = "[<<]CDEFGAB[>]CDEFGAB[>]CDEFGAB[>]CDEFGAB[>]CDEFGAB[>]CDEFGAB[>]CDEFGAB.";
-
-char score3[] = "E(<<)A~G(>)BB(<<)B(>)~~BF(>>>>)E(<)D D(<)AB B";
-
-char score4[] = "[<<],E--E~~D[>>]F(<)--F--F--  ,[<<<<],E--E~~D[>>]F(<)--F--F-- E,[<<<<],E--E~~D[>>>>]F(<)--F--F--E~_E(<),[<<<<],E--E~~D[>>>>]F(<)--F--F-- E(>)";</p><h2>Authors</h2>
-<p>Naokazu Terada (naokazu.terada@gmail.com)<br/><br/>      </p>
+<object width="400" height="300"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=6962499&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=ff9933&amp;fullscreen=1" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=6962499&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=ff9933&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="400" height="300"></embed></object><br />
+<br />
+<b>
+使い方</b><br />
+下記のようにスコア（char型の配列）を用意して、playScoreに渡します。<br />
+<pre class="code">char score[] = "E----.";<br />
+playScore(score);</pre><br />
+<br />
+<b>ノート</b><br />
+スコアはノートの連なりで構成され、playScoreの第２引数で１ノート分の単位時間を指定できます。<br />
+指定しない場合はデフォルト値（50ms）になります。<br />
+<pre class="code">// scoreの中の1ノートの長さが1000msになります。<br />
+playScore(score, 1000);</pre><br />
+<br />
+<b>スコア記号</b><br />
+<pre class="code">'A','B','C','D','E','F','G','A','B'：１ノートの音高<br />
+' '：１ノートの無音<br />
+'-'：１ノートの持続<br />
+'~'：ベンドと１ノートの持続<br />
+'>'：１オクターブ上昇<br />
+'<'：１オクターブ下降<br />
+'.'：SILENCE_TIMEで指定された時間分の無音<br />
+'('：ノートの変化記号開始<br />
+')'：ノートの変化記号終了<br />
+'['：グローバルの変化記号開始<br />
+']'：グローバルの変化記号終了<br />
+','：無視される記号（グルーピングなどに使用する）</pre><br />
+<br />
+<b>スコアの記述</b><br />
+ノートの音高を指定し、持続記号で長さを指定します。音高記号はそれだけで１ノート分の長さを持ちます。<br />
+<pre class="code">"C"　「ド」<br />
+"C-"「ド」<br />
+"C--"　「ドー」</pre><br />
+無音部分はスペースで記述します。"."を最後につけるとループするときに一定の間隔を設けることができます<br />
+<pre class="code">"CC  C----."「ドド・・ドーー」</pre><br />
+ベンドによる音程の接続<br />
+</pre>"C~~~~D."　「ド」から４ノート分の長さで「レ」へ移行します。</pre><br />
+【注意】'~'の数で持続時間を指定します。例として次のノートの長さは（３ではなく）１ノート分になります。<br />
+<pre class="code">"E~F."</pre><br />
+ノート固有の変化記号はノートの後ろにつけます。<br />
+<pre class="code">"C(<)."</pre><br />
+グローバルな変化記号はそれ以降の全てのノートに影響します。<br />
+<pre class="code">"CDE[>]CDE."</pre><br />
+複数指定可能です。<br />
+<pre class="code">"CDE[>>>]CDE."</pre><br />
+上の方のビデオの中で再生してるスコアです。再生順になってます。<br />
+<pre class="code">char score1[] = "C--D--E----D--C--    C--D--E--D--C--D----.[>]C--D--E----D--C--    C--D--E--D--C--D----.";<br />
+char score2[] = "[<<]CDEFGAB[>]CDEFGAB[>]CDEFGAB[>]CDEFGAB[>]CDEFGAB[>]CDEFGAB[>]CDEFGAB.";<br />
+char score3[] = "E(<<)A~G(>)BB(<<)B(>)~~BF(>>>>)E(<)D D(<)AB B";<br />
+char score4[] = "[<<],E--E~~D[>>]F(<)--F--F--  ,[<<<<],E--E~~D[>>]F(<)--F--F-- E,[<<<<],E--E~~D[>>>>]F(<)--F--F--E~_E(<),[<<<<],E--E~~D[>>>>]F(<)--F--F-- E(>)";</pre><br />
+<br />
+<b>TODO</b><br />
+これから追加したい機能。<br />
+・半音階<br />
+・BPMの指定<br />
+・音高の周波数指定<br />
+・シャープやフラットの変化記号<br /><br />
+</p><h2>Authors</h2>
+<p>Naokazu Terada (naokazu.terada@gmail.com)
+<br/>
+<br/>      </p>
 <h2>Contact</h2>
-<p>Naokazu Terada (naokazu.terada@gmail.com)<br/>      </p>
+<p>Naokazu Terada (naokazu.terada@gmail.com)
+<br/>      </p>
 
 
     <h2>Download</h2>
