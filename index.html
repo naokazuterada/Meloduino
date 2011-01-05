@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title>naokazuterada/Meloduino @ GitHub</title>
+	
+	<style type="text/css">
+		body {
+  		margin-top: 1.0em;
+  		background-color: #259122;
+		  font-family: "Helvetica,Arial,FreeSans";
+  		color: #ffffff;
+    }
+    #container {
+      margin: 0 auto;
+      width: 700px;
+    }
+		h1 { font-size: 3.8em; color: #da6edd; margin-bottom: 3px; }
+		h1 .small { font-size: 0.4em; }
+		h1 a { text-decoration: none }
+		h2 { font-size: 1.5em; color: #da6edd; }
+    h3 { text-align: center; color: #da6edd; }
+    a { color: #da6edd; }
+    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
+    .download { float: right; }
+		pre { background: #000; color: #fff; padding: 15px;}
+    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+    .footer { text-align:center; padding-top:30px; font-style: italic; }
+	</style>
+	
+</head>
+
+<body>
+  <a href="http://github.com/naokazuterada/Meloduino"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+
+  <div id="container">
+
+    <div class="download">
+      <a href="http://github.com/naokazuterada/Meloduino/zipball/master">
+        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
+      <a href="http://github.com/naokazuterada/Meloduino/tarball/master">
+        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
+    </div>
+
+    <h1><a href="http://github.com/naokazuterada/Meloduino">Meloduino</a>
+      <span class="small">by <a href="http://github.com/naokazuterada">naokazuterada</a></span></h1>
+
+    <div class="description">
+      melody maker with bending sound on Arduino
+    </div>
+
+    <p>使い方
+下記のようにスコア（char型の配列）を用意して、playScoreに渡します。
+char score[] = "E----.";
+
+playScore(score);
+
+
+ノート
+スコアはノートの連なりで構成され、playScoreの第２引数で１ノート分の単位時間を指定できます。
+指定しない場合はデフォルト値（50ms）になります。
+// scoreの中の1ノートの長さが1000msになります。
+
+playScore(score, 1000);
+
+
+スコア記号
+'A','B','C','D','E','F','G','A','B'：１ノートの音高
+
+' '：１ノートの無音
+
+'-'：１ノートの持続
+
+'~'：ベンドと１ノートの持続
+
+'>'：１オクターブ上昇
+
+'<'：１オクターブ下降
+
+'.'：SILENCE_TIMEで指定された時間分の無音
+
+'('：ノートの変化記号開始
+
+')'：ノートの変化記号終了
+
+'['：グローバルの変化記号開始
+
+']'：グローバルの変化記号終了
+
+','：無視される記号（グルーピングなどに使用する）
+
+
+スコアの記述
+ノートの音高を指定し、持続記号で長さを指定します。音高記号はそれだけで１ノート分の長さを持ちます。
+"C"　「ド」
+
+"C-"「ド」
+
+"C--"　「ドー」
+
+無音部分はスペースで記述します。"."を最後につけるとループするときに一定の間隔を設けることができます
+"CC  C----."「ドド・・ドーー」
+
+ベンドによる音程の接続
+"C~~~~D."　「ド」から４ノート分の長さで「レ」へ移行します。
+【注意】'~'の数で持続時間を指定します。例として次のノートの長さは（３ではなく）１ノート分になります。
+"E~F."
+
+ノート固有の変化記号はノートの後ろにつけます。
+"C(<)."
+
+グローバルな変化記号はそれ以降の全てのノートに影響します。
+"CDE[>]CDE."
+
+複数指定可能です。
+"CDE[>>>]CDE."
+
+上の方のビデオの中で再生してるスコアです。再生順になってます。
+char score1[] = "C--D--E----D--C--    C--D--E--D--C--D----.[>]C--D--E----D--C--    C--D--E--D--C--D----.";
+
+char score2[] = "[<<]CDEFGAB[>]CDEFGAB[>]CDEFGAB[>]CDEFGAB[>]CDEFGAB[>]CDEFGAB[>]CDEFGAB.";
+
+char score3[] = "E(<<)A~G(>)BB(<<)B(>)~~BF(>>>>)E(<)D D(<)AB B";
+
+char score4[] = "[<<],E--E~~D[>>]F(<)--F--F--  ,[<<<<],E--E~~D[>>]F(<)--F--F-- E,[<<<<],E--E~~D[>>>>]F(<)--F--F--E~_E(<),[<<<<],E--E~~D[>>>>]F(<)--F--F-- E(>)";</p><h2>Authors</h2>
+<p>Naokazu Terada (naokazu.terada@gmail.com)<br/><br/>      </p>
+<h2>Contact</h2>
+<p>Naokazu Terada (naokazu.terada@gmail.com)<br/>      </p>
+
+
+    <h2>Download</h2>
+    <p>
+      You can download this project in either
+      <a href="http://github.com/naokazuterada/Meloduino/zipball/master">zip</a> or
+      <a href="http://github.com/naokazuterada/Meloduino/tarball/master">tar</a> formats.
+    </p>
+    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
+      by running:
+      <pre>$ git clone git://github.com/naokazuterada/Meloduino</pre>
+    </p>
+
+    <div class="footer">
+      get the source code on GitHub : <a href="http://github.com/naokazuterada/Meloduino">naokazuterada/Meloduino</a>
+    </div>
+
+  </div>
+
+  
+</body>
+</html>
